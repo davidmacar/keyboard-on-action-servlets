@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<head>
+	<link rel="stylesheet" type="text/css" href="/style.css">
+	<meta charset="utf-8" lang="es-ES">
+	<title>Inicio - Keyboard on Action</title>
+	<script type="text/javascript" src="/scripts/scripts.js"></script>
+	<script>menus()</script>   
+</head>
+
+<style>
+	
+	.imagen-panel-inicio{
+		width:35%; 
+		height:35%; 
+		display: block; 
+		margin-left: auto; 
+		margin-right: auto;
+	}
+	
+</style>
+<body>
+	<!--Cabecera-->
+	<div id="cabecera">
+		<div id="contenedor_logo">
+			<img id="logo_menu" onmouseover="iluminar()" onmouseout="apagar()" src="/imagenes/logo.png" width="100px" height="100px" alt="Logo de la plataforma">
+		</div>
+		<div id="perfil_usuario">
+			<img id= "imagen_usuario" src="/imagenes/usuario.png" width="50" height="50" alt="Logo de la plataforma">
+			<a href="/paginas/usuarios/login.html"> Iniciar sesion</a>
+		</div>
+		
+		
+		<ul id="navVar">
+		
+		</ul>
+	</div>
+	
+	<!--Breadcrumbs-->
+	<div class="breadcrumb">
+		<a>Inicio</a>
+	</div>
+
+	<div id="panel-inicio" style="position: relative; background-color: #1b1b19;">
+		<img class="imagen-panel-inicio" src="/imagenes/teclado.jpg">
+		<img class="imagen-panel-inicio" src="/imagenes/caja.jpg">
+		<img class="imagen-panel-inicio" src="/imagenes/keycap.jpg">
+	  
+		<button onclick="plusDivs(-1)" style="background-color: #232931; position:absolute; margin-top: -19%; margin-left: 25%; border-radius: 50%;"><img src="/imagenes/flecha-izquierda.png" style="height: 30px; width: 30px"></button>
+		<button onclick="plusDivs(1)" style="background-color: #232931; position:absolute; margin-top: -19%; margin-left: 75%; border-radius: 50%;"><img src="/imagenes/flecha-derecha.png" style="height: 30px; width: 30px">;</button>
+	</div>
+
+	<div class="flex-contenedor">
+		<div class="flex-opcion-menu">
+			<a href="/paginas/teclados/teclados.html">
+				<img src="/imagenes/teclado.jpg" alt="teclado_icono">
+				<h3>Teclados</h3>
+			</a>
+		</div>
+		<div class="flex-opcion-menu">
+			<a href="/paginas/cajas/cajas.html">
+				<img src="/imagenes/caja.jpg" alt="caja_icono">
+				<h3>Cajas</h3>
+			</a>
+		</div>
+		<div class="flex-opcion-menu">
+			<a href="/paginas/keycaps/keycaps.html">
+				<img src="/imagenes/keycap.jpg" alt="keycap_icono">
+				<h3>Keycaps</h3>
+			</a>
+		</div>
+	</div>
+		
+	<!--Footer-->
+	<div class="separador-footer"> </div>
+	<footer>
+		<div class="footer-superior">
+			<h3>Keyboard on Action</h3>
+			<p>Si buscas una plataforma en la que expresar tu arte de forma accesible al público, estás en el lugar adecuado.</p>
+		</div>
+		<div class="footer-inferior">
+			<ul id="links-footer">
+			</ul>
+		</div>
+	</footer>
+</body>
+<script>
+	var slideIndex = 1;
+	tiempo = false;
+	showDivs(slideIndex);
+
+	function plusDivs(n) {
+		if(tiempo){
+			clearTimeout(tiempo);
+			tiempo= false;
+		}
+		  showDivs(slideIndex += n);
+	}
+	
+	function plusTimerDivs(n){
+		showDivs(slideIndex += n);
+	}
+
+	function showDivs(n) {
+		let i;
+		let x = document.getElementsByClassName("imagen-panel-inicio");
+		if (n > x.length) {slideIndex = 1}
+		if (n < 1) {slideIndex = x.length}
+		for (i = 0; i < x.length; i++) {
+			x[i].style.display = "none";  
+		}
+		if(slideIndex==3){
+			document.getElementById("panel-inicio").style.backgroundColor = "black";
+		}
+		else{
+			document.getElementById("panel-inicio").style.backgroundColor = "#1b1b19";
+		}
+		x[slideIndex-1].style.display = "block";  
+		tiempo = setTimeout(timer, 3000);
+
+	}
+
+	function timer(){
+		plusTimerDivs(1);
+	}
+	</script>
+
+</html>

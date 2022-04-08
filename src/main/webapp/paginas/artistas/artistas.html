@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<head>
+	<link rel="stylesheet" type="text/css" href="/style.css">
+	<title>Artistas - Keyboard on Action</title>
+    <meta charset="utf-8" lang="es-ES">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script type="text/javascript" src="/scripts/scripts.js"></script>
+    <script>menus()</script>  
+</head>
+
+<body>
+	<!--Cabecera-->
+    <img id="logo_menu" onmouseover="iluminar()" onmouseout="apagar()" src="/imagenes/logo.png" width="100" height="100" alt="Logo de la plataforma">
+    <ul id="navVar">
+        
+    </ul>
+
+    <!--Breadcrumbs-->
+    <div class="breadcrumb">
+        <a href="/index.html">Inicio</a>
+        <a>Artistas</a>
+    </div>
+
+    <!--Lista de artistas-->
+    <div id="lista-artistas"></div>
+    
+    <!--Footer-->
+    <div class="separador-footer"> </div>
+    <footer>
+        <div class="footer-superior">
+            <h3>Keyboard on Action</h3>
+            <p>Si buscas una plataforma en la que expresar tu arte de forma accesible al público, estás en el lugar adecuado.</p>
+        </div>
+        <div class="footer-inferior">
+                <ul id="links-footer">
+                </ul>
+        </div>
+    </footer>
+</body>
+
+<script>
+	function cargar(){
+		fetch('/paginas/artistas/artistas.json').then(cargado);
+	}
+
+	function cargado(response){
+		response.text().then(function (text){
+			var jsonObj=JSON.parse(text);
+			var insert='';
+			for(x in jsonObj.Artistas) {
+				insert+='<div class="bloque-artista"> <a href="' + jsonObj.Artistas[x].Web + '"> <div class="imagen-artista"> <img src="' + jsonObj.Artistas[x].Imagen + '"alt="artista"> <h1>' + jsonObj.Artistas[x].Nombre + '</h1> </div> </a> <p>' + jsonObj.Artistas[x].Descripcion + '</p> </div>';
+			}
+			document.getElementById('lista-artistas').innerHTML=insert;
+		}).then(zoom);
+	}
+
+	cargar()
+
+	function zoom(){
+		$(".imagen-artista").on('mouseover', function(e){
+			$(e.target).closest(".bloque-artista").children("p").css({'font-size': '150%'});
+			$(e.target).children("h1").css({'color': '#4ecca3'});
+		})
+		
+		$(".imagen-artista").on('mouseout', function(e){
+			$(e.target).closest(".bloque-artista").children("p").css({'font-size': '100%'});
+			$(e.target).children("h1").css({'color': 'white'});
+		})
+	}
+</script>
+
+</html>

@@ -1,0 +1,47 @@
+<MENUS>
+    <CABECERA>
+        <ENTRADA>
+            <NOMBRE>Inicio</NOMBRE>
+            <DIRECCION>/index.html</DIRECCION>
+        </ENTRADA>
+        <ENTRADA>
+            <NOMBRE>Cajas</NOMBRE>
+            <DIRECCION>/paginas/cajas/cajas.html</DIRECCION>
+        </ENTRADA>
+        <ENTRADA>
+            <NOMBRE>Teclados</NOMBRE>
+            <DIRECCION>/paginas/teclados/teclados.html</DIRECCION>
+        </ENTRADA>
+        <ENTRADA>
+            <NOMBRE>Keycaps</NOMBRE>
+            <DIRECCION>/paginas/keycaps/keycaps.html</DIRECCION>
+        </ENTRADA>
+        <ENTRADA>
+            <NOMBRE>Artistas</NOMBRE>
+            <DIRECCION>/paginas/artistas/artistas.html</DIRECCION>
+        </ENTRADA>
+        <ENTRADA>
+            <NOMBRE>Contacto</NOMBRE>
+            <DIRECCION>/paginas/contacto/contacto.html</DIRECCION>
+        </ENTRADA>
+    </CABECERA>
+
+    <FOOTER>
+        <ENTRADA>
+            <NOMBRE>Inicio</NOMBRE>
+            <DIRECCION>/index.html</DIRECCION>
+        </ENTRADA>
+        <ENTRADA>
+            <NOMBRE>Artistas</NOMBRE>
+            <DIRECCION>/paginas/artistas/artistas.html</DIRECCION>
+        </ENTRADA>
+        <ENTRADA>
+            <NOMBRE>Teclados</NOMBRE>
+            <DIRECCION>/paginas/teclados/teclados.html</DIRECCION>
+        </ENTRADA>
+        <ENTRADA>
+            <NOMBRE>Contacto</NOMBRE>
+            <DIRECCION>/paginas/contacto/contacto.html</DIRECCION>
+        </ENTRADA>
+    </FOOTER>
+</MENUS>

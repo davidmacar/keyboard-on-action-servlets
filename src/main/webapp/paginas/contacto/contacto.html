@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Contacto - Keyboard on Action</title>
+		<meta charset="utf-8" lang="es-ES">
+		<link rel="stylesheet" type="text/css" href="/style.css">
+		<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
+		<script type="text/javascript" src="/scripts/scripts.js"></script>
+ 	  	<script>menus()</script>  
+</head>
+	
+	<style>
+		.grid_layout{
+			display: grid;
+			justify-content: center;
+			grid-template-areas: "titulo titulo"
+								 "subtitulo subtitulo" 
+								 "nombre mail"
+								 "mensaje mensaje"
+								 "enviar enviar";
+			grid-template-columns: 45% 45%;
+		}
+
+		.titulo { 
+			grid-area: titulo; 
+			text-align: justify;
+			word-wrap: normal;
+			margin: 0 20%;
+		}
+
+		.subtitulo { 
+			grid-area: subtitulo; 
+			text-align: justify;
+			margin: 2.5% 5%;
+		}
+		
+		.nombre{
+			grid-area: nombre; 
+			text-align: center;
+		}
+		
+		.mail{
+			grid-area: mail; 
+			text-align: center;
+		}
+		
+		.mensaje{
+			grid-area: mensaje; 
+			text-align: center;
+		}
+		
+		.enviar{
+			grid-area: enviar; 
+			text-align: center;
+		}
+		
+		.boton{
+			background-color: #16a085;
+			border: none;
+			color: #232931;
+			padding: 20px 60px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			margin: 4px 2px;
+			cursor: pointer;
+			border-radius: 16px;
+			font-family: 'Open Sans', sans-serif;
+			font-size: medium;
+		}
+		
+		.boton:hover{
+			background-color:#4ecca3;
+		}
+
+		.label{
+			font-size: larger;
+		}
+
+		.input_datos{
+			width: 50%; 
+			height: 40px; 
+			border-radius: 15px; 
+			background-color: #393e46; 
+			color: #eeeeee;
+			padding: 10px;
+			box-sizing: border-box;
+		}
+
+		.input_mensaje{
+			background-color: #393e46; 
+			color: #eeeeee; 
+			width: 80%; 
+			height: 500px; 
+			border-radius: 15px;
+			padding: 10px;
+			box-sizing: border-box;
+		}
+	</style>
+
+
+	<body>
+		
+		<!--Cabecera-->
+		<img id="logo_menu" onmouseover="iluminar()" onmouseout="apagar()" src="/imagenes/logo.png" width="100" height="100" alt="Logo de la plataforma">
+		<ul id="navVar">
+			  
+		</ul>
+
+		<!--Breadcrumbs-->
+		<div class="breadcrumb">
+			<a href="/index.html">Inicio</a>
+			<a>Contacto</a>
+		</div>
+
+		<div class="grid_layout">
+			<h1 class="titulo">
+				Si buscas una plataforma en la que expresar tu arte de forma accesible al público, estás en el lugar adecuado.
+			</h1>
+	
+			<h2 class="subtitulo">
+				En KeyBoard On Action buscamos proporcionar un espacio libre para que artistas del gremio de los teclados puedan darse a conocer de forma sencilla y llamativa para el comprador final. Nuestra intención es ofrecer a los nuevos artistas una comunidad en la que mostrar sus obras y trasladar a los compradores sus ideas de diseño y habilidades, así como compartir cualquier método de contacto directo para aquellos interesados en su arte. De igual forma, para aquellos que simplemente disfruten el mundo del teclado, KeyBoard On Action supone una galería de obras con estilos muy heterogéneos y que acerca a los artistas al cliente para facilitar el contacto y la cooperación entre ambas partes. 
+			</h2>
+
+			<div class="nombre">
+				<form>
+					<label class="label" for="nombre">Nombre:</label>
+					<br>
+					<input class="input_datos" id="textoNombre"  type="text" >
+				</form>
+			</div>
+			
+			<div class="mail">
+				<form>
+					<label class="label" for="mail">E-mail:</label>
+					<br>
+					<input class="input_datos" id="textoEmail" type="text" id="mail">
+				</form>
+			</div>
+
+			<div class="mensaje" style="margin-top: 3%;">
+				<form>
+					<label class="label" for="mensaje">Mensaje:</label>
+					<br>
+					<textarea class="input_mensaje" placeholder="Escribe aqui tu mensaje..."  name="mensaje"></textarea>
+				</form>
+			</div>
+
+			<div class="enviar">
+				<button class="boton" onclick="myFunction()">Enviar</button>
+			</div>
+
+		</div>
+
+		<!--Footer-->
+		<div class="separador-footer"> </div>
+		<footer>
+			<div class="footer-superior">
+				<h3>Keyboard on Action</h3>
+				<p>Si buscas una plataforma en la que expresar tu arte de forma accesible al público, estás en el lugar adecuado.</p>
+			</div>
+			<div class="footer-inferior">
+					<ul id="links-footer">
+			</ul>
+			</div>
+		</footer>
+		
+	</body>
+
+	<script>    
+        function myFunction() {
+			let cond1=Mvalid($("#textoEmail").val());
+			let cond2=Nvalid($("#textoNombre").val());
+			let cond3=Dvalid($(".input_mensaje").val());
+			
+			if(cond1==false){
+				alert("El email no esta bien formado. Recuerda que debe contener, al menos, arroba, punto, y otros 3 caracteres");
+				$("#textoEmail").css({'border-color': 'red'});
+			}
+			else{
+				$("#textoEmail").css({'border-color': 'transparent'});
+			}
+			
+			if(cond2==false){
+				alert("El nombre de usuario debe contener, al menos, 5 caracteres");
+				$("#textoNombre").css({'border-color': 'red'});
+			}
+			else{
+				$("#textoNombre").css({'border-color': 'transparent'});
+			}
+			
+			if(cond3==false){
+				alert("No has escrito ningun mensaje");
+				$(".input_mensaje").css({'border-color': 'red'});
+			}
+			else{
+				$(".input_mensaje").css({'border-color': 'transparent'});
+			}
+			
+			if(cond1 && cond2 && cond3){
+				alert("¡Se ha enviado tu mensaje!");
+				$("#textoEmail").val("");
+				$("#textoNombre").val("");
+				$(".input_mensaje").val("");	
+			}
+		}
+			
+		var Mvalid= mail => (mail.includes("@") && mail.includes(".") && (mail.trim().length >= 5));
+		var Nvalid= name => (name.trim().length > 4);
+		var Dvalid= mssg => (mssg.trim().length >= 1);
+    </script>
+
+</html>

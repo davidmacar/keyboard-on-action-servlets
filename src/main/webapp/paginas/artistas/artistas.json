@@ -1,0 +1,8 @@
+{
+    "Artistas":[
+    {"Nombre": "John Wayne","Descripcion": "Descripción de pepe rodriguez: es un buen tipo la verdad es que se lo tiene merecido","Web":"/paginas/artistas/info_artista.html","Imagen": "/imagenes/john_wayne.png" },
+    {"Nombre": "Rossy de Palma","Descripcion": "La locura de las flores","Web":"/paginas/artistas/info_artista.html","Imagen": "/imagenes/rossy_de_palma.png" },
+    {"Nombre": "Jonah Jameson","Descripcion": "La gracia nunca fue lo suyo","Web":"/paginas/artistas/info_artista.html","Imagen": "/imagenes/jonah_jameson.png" },
+    {"Nombre": "Hannah Montana","Descripcion": "Un clasico donde los haya, manchego ante todo","Web":"/paginas/artistas/info_artista.html","Imagen": "/imagenes/hannah_montana.png" }
+    ]
+}

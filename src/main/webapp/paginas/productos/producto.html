@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Página del Producto - Keyboard on Action</title>
+		<meta charset="utf-8" lang="es-ES">
+		<link rel="stylesheet" type="text/css" href="/style.css">
+		<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
+		<script type="text/javascript" src="/scripts/jquery.mlens-1.7.min.js"></script>
+	  	<script type="text/javascript" src="/scripts/scripts.js"></script>
+ 	  	<script>menus()</script>  
+</head>
+	
+	
+
+	<style>
+		.grid_layout{
+			display: grid;
+			justify-content: center;
+			grid-template-areas:    "producto artista";
+			grid-template-columns: 60% 40%;
+			grid-column-gap: 10%;
+			margin: 20px 10% auto 10%
+		}
+	
+		.producto{
+			grid-area: producto; 
+			text-align: center;
+		}
+
+		.producto h1{
+			margin: 0px auto 10px auto; 
+		}
+	
+		.artista-producto{
+			grid-area: artista; 
+			text-align: center;
+		}
+	
+		.descripcion{ 
+			text-align: justify;
+		}
+		
+		.descripcion > h2{
+			text-align: center;
+			margin-top: 5%;
+		}
+
+		#img-producto-wrapper {
+			position: relative;
+			width: 75%;
+			margin: auto;
+		}
+
+		.artista-producto > img{
+			width: 60%;
+			border-radius: 50%; 
+			border-width: 20px; 
+			border-color: #393e46; 
+			border-style: solid;
+		}
+
+		.artista-producto > h2{
+			margin-top: 5%;
+		}
+		
+		.artista-producto > p{
+			text-align: justify;
+		}
+		.boton{
+			background-color: #4ecca3;
+			border: none;
+			color: #232931;
+			padding: 0px 50px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			margin: 4px 2px;
+			cursor: pointer;
+			border-radius: 50px;
+			font-family: 'Open Sans', sans-serif;
+		}
+	
+	</style>
+	
+	<body>
+		
+		<!--Cabecera-->
+		<img id="logo_menu" onmouseover="iluminar()" onmouseout="apagar()" src="/imagenes/logo.png" width="100" height="100" alt="Logo de la plataforma">
+		<ul id="navVar">
+			  
+		</ul>
+
+		<!--Breadcrumbs-->
+		<div class="breadcrumb">
+			<a href="/index.html">Inicio</a>
+			<a>Página del producto</a>
+		</div>
+
+
+		<!--Contenido-->
+		<div class="grid_layout">
+			<div class="producto">
+				<h1>TOFU96</h1>
+				<div id="img-producto-wrapper">
+					<img id="imagen-producto" src="/imagenes/teclado.jpg" alt="Imagen del producto" data-big="/imagenes/teclado.jpg">
+				</div>
+					
+				<div class="descripcion">
+					<h2>Descripción del producto</h2>
+					<p> El teclado TOFU96, con una estética innovadora y unos materiales de primerísima calidad trabajados personalmente por el autor, proporciona una comodidad extrema al escribir y un atractivo visual innegable. Su cuidadosa fabricación le permite tener el doble de durabilidad que la media de mercado.</p>
+				</div>
+			</div>
+
+			<div class="artista-producto">
+				<img src="/imagenes/john_wayne.png" alt="Imagen personal del autor">
+                <h2>John Wayne</h2>
+				<p> Pepe Pérez, el autor original del TOFU96, define este como uno de sus diseños más inspirados y, a la vez, ambiciosos. En él, intentó combinar una estética vanguardista con detalles de corte tradicional para crear un teclado que aúna lo mejor de los dos mundos; además de tener una calidad tope de gama </p>
+				<a href="/paginas/artistas/info_artista.html">
+					<button class="boton">
+						<h3>Página personal del artista</h3>
+					</button>
+				</a>
+			</div>
+		</div>
+
+		<!--Footer-->
+		<div class="separador-footer"> </div>
+		<footer>
+			<div class="footer-superior">
+				<h3>Keyboard on Action</h3>
+				<p>Si buscas una plataforma en la que expresar tu arte de forma accesible al público, estás en el lugar adecuado.</p>
+			</div>
+			<div class="footer-inferior">
+					<ul id="links-footer">
+				</ul>
+			</div>
+		</footer>
+		
+		
+	</body>
+	
+	<script>
+		$(document).ready(() =>
+		{
+			$("#imagen-producto").mlens(
+			{
+				imgSrc: $("#imagen-producto").attr("data-big"),	  // path of the hi-res version of the image
+				lensShape: "circle",                // shape of the lens (circle/square)
+				lensSize: 180,            // lens dimensions (in px or in % with respect to image dimensions)
+													// can be different for X and Y dimension
+				borderSize: 4,                  // size of the lens border (in px)
+				borderColor: "#fff",            // color of the lens border (#hex)
+				borderRadius: 0,                // border radius (optional, only if the shape is square)
+				zoomLevel: 1,          // zoom level multiplicator (number)
+				responsive: true       // true if mlens has to be responsive (boolean)
+			}); 
+			
+		});
+	</script>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<head>
+	<link rel="stylesheet" type="text/css" href="/style.css">
+	<meta charset="utf-8" lang="es-ES">
+	<title>Inicio - Keyboard on Action</title>
+	<script type="text/javascript" src="/scripts/scripts.js"></script>
+	<script>menus()</script>   
+</head>
+
+<style>
+	
+	.imagen-panel-inicio{
+		width:35%; 
+		height:35%; 
+		display: block; 
+		margin-left: auto; 
+		margin-right: auto;
+	}
+
+</style>
+<body>
+	<!--Cabecera-->
+	<div id="cabecera">
+		<div id="contenedor_logo">
+			<img id="logo_menu" onmouseover="iluminar()" onmouseout="apagar()" src="/imagenes/logo.png" width="100px" height="100px" alt="Logo de la plataforma">
+		</div>
+		<div id="perfil_usuario">
+			<img id= "imagen_usuario" src="/imagenes/usuario.png" width="50" height="50" alt="Logo de la plataforma">
+			<a href="/paginas/usuarios/login.html"> Iniciar sesion</a>
+		</div>
+
+		<ul id="navVar">
+
+		</ul>
+	</div>
+
+	<!--Breadcrumbs-->
+	<div class="breadcrumb">
+		<a href="/index.html">Inicio</a>
+		<a>Registro</a>
+	</div>
+
+	<!--Register-->
+	<form class="login-formulario" action="/servlet-register">
+		<h1>Registro</h1>
+		<div class="datos">
+			<input id="userame" type="username" name="username" placeholder="Nombre usuario">
+			<input id="telefono" type="number" name="telefono" placeholder="Numero de telefono (Opcional)">
+			<input id="email" type="email" name="email1" placeholder="Email">
+			<input id="email2" type="email" name="email2" placeholder="Repite el Email">
+			<input id="password" type="password" name="password1" placeholder="Password">
+			<input id="password2" type="password" name="password2" placeholder="Repite Password">
+		</div>	
+		<div class="botones">
+			<button type="button" onclick="window.location.href = '/paginas/usuarios/login.html'">Login</button>
+			<button type="submit">Enviar</button>
+		</div>
+	</form>
+
+	<!--Footer-->
+	<div class="separador-footer"> </div>
+	<footer>
+		<div class="footer-superior">
+			<h3>Keyboard on Action</h3>
+			<p>Si buscas una plataforma en la que expresar tu arte de forma accesible al público, estás en el lugar adecuado.</p>
+		</div>
+		<div class="footer-inferior">
+			<ul id="links-footer">
+			</ul>
+		</div>
+	</footer>
+</body>
+</html>
