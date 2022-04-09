@@ -55,7 +55,7 @@ public class Login extends HttpServlet {
             }
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery("SELECT * from Usuarios");
-            if(rs.next()){
+            while(rs.next()){
                 System.out.println(rs.getString("Nombre"));
             }
         } catch (SQLException e) {
