@@ -14,6 +14,8 @@ public class Login extends HttpServlet {
         //Leer los campos
         String email = request.getParameter("email");
         String password = request.getParameter("password");
+
+        /*BORRAR*/
         //Checkear la BD
         System.out.println("email: " + email);
         System.out.println("password: " + password);
@@ -31,11 +33,41 @@ public class Login extends HttpServlet {
         htmlRespone += "</html>";
         // return response
         //writer.println(htmlRespone);
-        response.sendRedirect("/index.html");
+        /*FIN BORRADO*/
+
+
         try {
-            movidas();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            Class.forName("org.postgresql.Driver");
+            try(Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/usuarios", "postgres", "postgres")) {
+                if(connection != null){
+                    System.out.println("Conectado");
+                }
+                else{
+                    System.out.println("No conectado");
+                }
+                assert connection != null;
+                Statement st = connection.createStatement();
+                String query = "SELECT nombre, correo, contrasena FROM usuarios WHERE correo='" + email + "';";
+                ResultSet rs = st.executeQuery(query);
+                if(rs.next()){
+                    if(password.equals(rs.getString("contrasena"))) {
+                        System.out.println("Usuario encontrado");
+                        HttpSession session = request.getSession();
+                        session.setAttribute("username", rs.getString("nombre"));
+                        session.setAttribute("email", rs.getString("correo"));
+                        session.setAttribute("contrasena", rs.getString("contrasena"));
+
+                    }
+                    else
+                        System.out.println("Usuario no encontrado");
+                }
+                response.sendRedirect("/paginas/usuarios/login.html");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } ;
+
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
         }
     }
 
@@ -44,23 +76,4 @@ public class Login extends HttpServlet {
         doGet(request, response);
     }
 
-    public void movidas() throws ClassNotFoundException {
-        Class.forName("org.postgresql.Driver");
-        try(Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/usuarios", "postgres", "postgres")) {
-            if(connection != null){
-                System.out.println("Conectado");
-            }
-            else{
-                System.out.println("No conectado");
-            }
-            Statement st = connection.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * from Usuarios");
-            while(rs.next()){
-                System.out.println(rs.getString("Nombre"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } ;
-
-    }
 }
