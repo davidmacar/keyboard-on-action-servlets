@@ -4,6 +4,7 @@
 	<meta charset="utf-8" lang="es-ES">
 	<title>Inicio - Keyboard on Action</title>
 	<script type="text/javascript" src="/scripts/scripts.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script>menus()</script>   
 </head>
 
@@ -41,13 +42,15 @@
 	</div>
 
 	<!--Register-->
+
 	<form class="login-formulario" action="/servlet-register">
 		<h1>Registro</h1>
+		<div id="respuesta_servlet" style="margin: 1em auto; opacity:0;">Esto es una linea para eliminar </div>
 		<div class="datos">
 			<input id="userame" type="username" name="username" placeholder="Nombre usuario">
 			<input id="telefono" type="number" name="telefono" placeholder="Numero de telefono (Opcional)">
 			<input id="email" type="email" name="email1" placeholder="Email">
-			<input id="email2" type="email" name="email2" placeholder="Repite el Email">
+				<input id="email2" type="email" name="email2" placeholder="Repite el Email">
 			<input id="password" type="password" name="password1" placeholder="Password">
 			<input id="password2" type="password" name="password2" placeholder="Repite Password">
 		</div>	
@@ -70,4 +73,74 @@
 		</div>
 	</footer>
 </body>
+
 </html>
+
+<script type="text/javascript">
+	var form = $('.login-formulario');
+	form.submit(function () {
+
+		$.ajax({
+			type: form.attr('method'),
+			url: form.attr('action'),
+			data: form.serialize(),
+			success: function (data) {
+				let array = data.split(",");
+				array[1] = array[1].replace(/(\r\n|\n|\r)/gm, "");
+				console.log("Array data: \n" + array[0] + "\n" + array[1]);
+				switch(array[0]){
+					case "OK":
+						$('#respuesta_servlet').html("Se ha registrado correctamente");
+						$('#respuesta_servlet').css({'color': 'green', 'margin': '1em auto', 'opacity': '1'});
+						//LIMPIAR LOS CAMPOS
+						break;
+					case "ERROR":
+						switch (array[1]){
+							case "nombre":
+								$('#respuesta_servlet').html("Error en el nombre de usuario");
+								$('#respuesta_servlet').css({'color': 'red', 'margin': '1em auto'});
+								break;
+							case "email1":
+								$('#respuesta_servlet').html("Error en el email 1");
+								$('#respuesta_servlet').css({'color': 'red', 'margin': '1em auto', 'opacity': '1'});
+								break;
+							case "email2":
+								$('#respuesta_servlet').html("Error en el email 2");
+								$('#respuesta_servlet').css({'color': 'red', 'margin': '1em auto', 'opacity': '1'});
+								break;
+							case "emails":
+								$('#respuesta_servlet').html("Los emails introducidos no coinciden");
+								$('#respuesta_servlet').css({'color': 'red', 'margin': '1em auto', 'opacity': '1'});
+								break;
+							case "contrasena1":
+								$('#respuesta_servlet').html("Error en la contraseña 1");
+								$('#respuesta_servlet').css({'color': 'red', 'margin': '1em auto', 'opacity': '1'});
+								break;
+							case "contrasena2":
+								$('#respuesta_servlet').html("Error en la contraseña 2");
+								$('#respuesta_servlet').css({'color': 'red', 'margin': '1em auto', 'opacity': '1'});
+								break;
+							case "contrasenas":
+								$('#respuesta_servlet').html("Las contraseñas introducidas no coinciden");
+								$('#respuesta_servlet').css({'color': 'red', 'margin': '1em auto', 'opacity': '1'});
+								break;
+							case "duplicado":
+								window.alert("HOLA CON EL DUPLICADO");
+								$('#respuesta_servlet').html("El email ya esta registrado y asociado a un usuario");
+								$('#respuesta_servlet').css({'color': 'red', 'margin': '1em auto', 'opacity': '1'});
+								break;
+							case "otro":
+								$('#respuesta_servlet').html("Error en el registro");
+								$('#respuesta_servlet').css({'color': 'red', 'margin': '1em auto', 'opacity': '1'});
+								break;
+						}
+						break;
+					default:
+						window.alert("Resultado sin identificar");
+				}
+			},
+		});
+
+		return false;
+	});
+</script>

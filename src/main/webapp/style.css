@@ -444,6 +444,12 @@ footer{
     width: 80%;
 }
 
+#respuesta_servlet{
+    margin: 10vh 50vw;
+    padding: 10vh 50vw;
+    background-color: red;
+}
+
 .datos input {
     width: 100%;
     font-size: 22px;
