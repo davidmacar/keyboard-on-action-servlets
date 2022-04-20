@@ -45,7 +45,7 @@
 
 	<form class="login-formulario" action="/servlet-register">
 		<h1>Registro</h1>
-		<div id="respuesta_servlet" style="margin: 1em auto; opacity:0;">Linea placeholder invisible</div>
+		<div id="respuesta_servlet" style="margin: 1em 5vw; opacity:0;">Linea placeholder invisible</div>
 		<div class="datos">
 			<input id="userame" type="username" name="username" placeholder="Nombre usuario">
 			<input id="telefono" type="number" name="telefono" placeholder="Número de telefono (Opcional)">
@@ -53,7 +53,7 @@
 			<input id="email2" type="email" name="email2" placeholder="Repite el Email">
 			<input id="password" type="password" name="password1" placeholder="Password">
 			<input id="password2" type="password" name="password2" placeholder="Repite Password">
-		</div>	
+		</div>
 		<div class="botones">
 			<button type="button" onclick="window.location.href = '/paginas/usuarios/login.html'">Login</button>
 			<button type="submit">Enviar</button>
@@ -90,8 +90,8 @@
 				console.log("Array data: \n" + array[0] + "\n" + array[1]);
 				switch(array[0]){
 					case "OK":
-						$('#respuesta_servlet').html("Se ha registrado correctamente");
-						$('#respuesta_servlet').css({'color': '#4ecca3', 'margin': '1em auto', 'opacity': '1'});
+						$('#respuesta_servlet').html(array[2].toUpperCase()+" se ha registrado correctamente tu cuenta "+array[3].toUpperCase()+" siendo el ususario número: "+array[4]);
+						$('#respuesta_servlet').css({'color': '#4ecca3', 'margin': '1em 5vw', 'opacity': '1'});
 						//LIMPIAR LOS CAMPOS
 						form[0].reset();
 						break;

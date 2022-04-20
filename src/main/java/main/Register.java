@@ -21,8 +21,8 @@ public class Register extends HttpServlet {
         String contrasena2 = request.getParameter("password2");
         String telefono = request.getParameter("telefono");
 
-        System.out.println("Nombre: " + nombre + "\nemail1: " + email1 + "\nemail2: " + email2 + "\ncontrasena1: "
-                + contrasena1 + "\ncontrasena2: " + contrasena2 + "\ntelefono: " + telefono);
+        //System.out.println("Nombre: " + nombre + "\nemail1: " + email1 + "\nemail2: " + email2 + "\ncontrasena1: "
+        //        + contrasena1 + "\ncontrasena2: " + contrasena2 + "\ntelefono: " + telefono);
         /*COMPROBACIONES DE CAMPOS*/
         if (!nombre.equals("")){
             if (!email1.equals("")) {
@@ -46,8 +46,18 @@ public class Register extends HttpServlet {
                                                 Statement st = connection.createStatement();
                                                 String query = "INSERT INTO usuarios" + " VALUES('" + usuario.getNombre() + "','" + usuario.getEmail() + "','" + usuario.getContrasena() + "','" + usuario.getTelefono() + "');";
                                                 st.executeUpdate(query);
-                                                System.out.println("Usuario registrado: \nemail: " + email1 + "\npassword: " + contrasena1);
-                                                respuesta.println("OK,correcto");
+
+                                                Statement stmt = connection.createStatement();
+                                                ResultSet rs = stmt.executeQuery("SELECT \"ID\", \"Nombre\", \"Email\", \"Contrasena\", \"Telefono\" FROM usuarios WHERE \"Email\"='" + email1 + "';");
+                                                while(rs.next()){
+                                                    //Display values
+                                                    usuario = new Usuario(rs.getString("Nombre"), rs.getString("Email"),
+                                                            rs.getString("Contrasena"), String.valueOf(rs.getLong("Telefono")), rs.getInt("ID") );
+                                                    System.out.println("Usuario registrado y recuperado:\nNombre: " + usuario.getNombre() + "\nEmail: " + usuario.getEmail() + "\nContraseña: "
+                                                            + usuario.getContrasena() + "\nTelefono: " + usuario.getTelefono() + "\nID: " + usuario.getId());
+                                                    respuesta.println("OK,correcto,"+usuario.getNombre()+","+usuario.getEmail()+","+usuario.getId());
+
+                                                }
                                             }
 
                                         } catch (SQLException e) {

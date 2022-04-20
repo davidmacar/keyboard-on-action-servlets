@@ -1,16 +1,26 @@
 package main;
 
 public class Usuario {
-    public String nombre;
-    public String email;
-    public String contrasena;
-    public String telefono;
+    private String nombre;
+    private String email;
+    private String contrasena;
+    private String telefono;
+    private Integer id;
+
+    public Usuario(String nombre, String email, String contrasena, String telefono, Integer id){
+        this.nombre = nombre;
+        this.email = email;
+        this.contrasena = contrasena;
+        this.telefono = telefono;
+        this.id = id;
+    }
 
     public Usuario(String nombre, String email, String contrasena, String telefono){
         this.nombre = nombre;
         this.email = email;
         this.contrasena = contrasena;
         this.telefono = telefono;
+        this.id = -1;
     }
 
     public Usuario(String nombre, String email, String contrasena){
@@ -18,6 +28,7 @@ public class Usuario {
         this.email = email;
         this.contrasena = contrasena;
         this.telefono = "";
+        this.id = -1;
     }
 
     public String getNombre() {
@@ -50,5 +61,13 @@ public class Usuario {
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
+    }
+
+    public void setId(Integer id){
+        this.id = id;
+    }
+
+    public Integer getId(){
+        return this.id;
     }
 }
