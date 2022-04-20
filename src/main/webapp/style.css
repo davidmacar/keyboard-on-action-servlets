@@ -3,6 +3,7 @@
     #393e46 -> Fondo clarito
     #4ecca3 -> Resaltados
     #eeeeee -> Letra
+    #EF476F -> Errores
 */
 /*font-family: 'Open Sans', sans-serif; -> Texto basico*/
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@800&display=swap');
@@ -15,7 +16,7 @@ body{
     font-family: 'Open Sans', sans-serif;
     position: relative;
     min-height: 100vh; /*100% de la altura del Viewport*/
-    margin: 0PX;
+    margin: 0;
 }
 
 a{
