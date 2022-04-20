@@ -18,30 +18,33 @@ public class Register extends HttpServlet {
         String email1 = request.getParameter("email1");
         String email2 = request.getParameter("email2");
         String contrasena1 = request.getParameter("password1");
-        String contrasena2 = request.getParameter("password1");
+        String contrasena2 = request.getParameter("password2");
         String telefono = request.getParameter("telefono");
 
+        System.out.println("Nombre: " + nombre + "\nemail1: " + email1 + "\nemail2: " + email2 + "\ncontrasena1: "
+                + contrasena1 + "\ncontrasena2: " + contrasena2 + "\ntelefono: " + telefono);
         /*COMPROBACIONES DE CAMPOS*/
-        if (nombre != null){
-            if (email1 != null) {
-                if (email2 != null){
+        if (!nombre.equals("")){
+            if (!email1.equals("")) {
+                if (!email2.equals("")){
                     if(email1.equals(email2)) {
-                        if (contrasena1 != null) {
-                            if (contrasena2 != null){
+                        if (!contrasena1.equals("")) {
+                            if (!contrasena2.equals("")){
                                 if(contrasena1.equals(contrasena2)) {
-                                    if (telefono != null) {
+                                    if (!telefono.equals("")) {
                                         try {
                                             double d = Double.parseDouble(telefono);
                                         } catch (NumberFormatException err) {
                                             telefono = "-1";
                                         }
                                     }
+                                    Usuario usuario = new Usuario(nombre, email1, contrasena1, telefono);
                                     try {
                                         Class.forName("org.postgresql.Driver");
                                         try (Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/usuarios", "postgres", "postgres")) {
                                             if (connection != null) {
                                                 Statement st = connection.createStatement();
-                                                String query = "INSERT INTO usuarios" + " VALUES('" + nombre + "','" + email1 + "','" + contrasena1 + "','" + telefono + "');";
+                                                String query = "INSERT INTO usuarios" + " VALUES('" + usuario.getNombre() + "','" + usuario.getEmail() + "','" + usuario.getContrasena() + "','" + usuario.getTelefono() + "');";
                                                 st.executeUpdate(query);
                                                 System.out.println("Usuario registrado: \nemail: " + email1 + "\npassword: " + contrasena1);
                                                 respuesta.println("OK,correcto");
@@ -58,7 +61,6 @@ public class Register extends HttpServlet {
                                             }
 
                                         }
-
                                     } catch (ClassNotFoundException e) {
                                         e.printStackTrace();
                                     }
@@ -84,8 +86,6 @@ public class Register extends HttpServlet {
         else{//Falta nombre
             respuesta.println("ERROR,nombre");
         }
-        /*FIN DE COSAS QUE BORRAR*/
-
     }
 
     @Override

@@ -45,12 +45,12 @@
 
 	<form class="login-formulario" action="/servlet-register">
 		<h1>Registro</h1>
-		<div id="respuesta_servlet" style="margin: 1em auto; opacity:0;">Esto es una linea para eliminar </div>
+		<div id="respuesta_servlet" style="margin: 1em auto; opacity:0;">Linea placeholder invisible</div>
 		<div class="datos">
 			<input id="userame" type="username" name="username" placeholder="Nombre usuario">
-			<input id="telefono" type="number" name="telefono" placeholder="Numero de telefono (Opcional)">
+			<input id="telefono" type="number" name="telefono" placeholder="Número de telefono (Opcional)">
 			<input id="email" type="email" name="email1" placeholder="Email">
-				<input id="email2" type="email" name="email2" placeholder="Repite el Email">
+			<input id="email2" type="email" name="email2" placeholder="Repite el Email">
 			<input id="password" type="password" name="password1" placeholder="Password">
 			<input id="password2" type="password" name="password2" placeholder="Repite Password">
 		</div>	
@@ -91,14 +91,15 @@
 				switch(array[0]){
 					case "OK":
 						$('#respuesta_servlet').html("Se ha registrado correctamente");
-						$('#respuesta_servlet').css({'color': 'green', 'margin': '1em auto', 'opacity': '1'});
+						$('#respuesta_servlet').css({'color': '#4ecca3', 'margin': '1em auto', 'opacity': '1'});
 						//LIMPIAR LOS CAMPOS
+						form[0].reset();
 						break;
 					case "ERROR":
 						switch (array[1]){
 							case "nombre":
 								$('#respuesta_servlet').html("Error en el nombre de usuario");
-								$('#respuesta_servlet').css({'color': 'red', 'margin': '1em auto'});
+								$('#respuesta_servlet').css({'color': 'red', 'margin': '1em auto', 'opacity': '1'});
 								break;
 							case "email1":
 								$('#respuesta_servlet').html("Error en el email 1");
@@ -125,7 +126,6 @@
 								$('#respuesta_servlet').css({'color': 'red', 'margin': '1em auto', 'opacity': '1'});
 								break;
 							case "duplicado":
-								window.alert("HOLA CON EL DUPLICADO");
 								$('#respuesta_servlet').html("El email ya esta registrado y asociado a un usuario");
 								$('#respuesta_servlet').css({'color': 'red', 'margin': '1em auto', 'opacity': '1'});
 								break;
@@ -135,12 +135,9 @@
 								break;
 						}
 						break;
-					default:
-						window.alert("Resultado sin identificar");
 				}
 			},
 		});
-
 		return false;
 	});
 </script>
