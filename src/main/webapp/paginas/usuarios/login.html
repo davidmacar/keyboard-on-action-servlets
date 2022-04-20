@@ -4,6 +4,7 @@
 	<meta charset="utf-8" lang="es-ES">
 	<title>Inicio - Keyboard on Action</title>
 	<script type="text/javascript" src="/scripts/scripts.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script>menus()</script>   
 </head>
 
@@ -41,8 +42,9 @@
 	</div>
 
 	<!--Login-->
-	<form class="login-formulario" id="pedro" action="/servlet-login" method="get">
+	<form class="login-formulario" action="/servlet-login">
 		<h1>Login</h1>
+		<div id="respuesta_servlet" style="margin: 1em 5vw; opacity:0;">Linea placeholder invisible</div>
 		<div class="datos">
 			<input id="email" type="email" name="email" placeholder="Email" >
 			<input id="password" type="password" name="password" placeholder="Password">
@@ -67,7 +69,51 @@
 	</footer>
 </body>
 
-<script>
-
-</script>
 </html>
+
+<script type="text/javascript">
+	var form = $('.login-formulario');
+	form.submit(function () {
+
+		$.ajax({
+			type: form.attr('method'),
+			url: form.attr('action'),
+			data: form.serialize(),
+			success: function (data) {
+				let array = data.split(",");
+				array[1] = array[1].replace(/(\r\n|\n|\r)/gm, "");
+				console.log("Array data: \n" + array[0] + "\n" + array[1]);
+				switch(array[0]){
+					case "OK":
+						$('#respuesta_servlet').html("Bienvenido " + array[2].toUpperCase());
+						$('#respuesta_servlet').css({'color': '#4ecca3', 'margin': '1em 5vw', 'opacity': '1'});
+						//LIMPIAR LOS CAMPOS
+						form[0].reset();
+						break;
+					case "ERROR":
+						switch (array[1]){
+							case "email":
+								$('#respuesta_servlet').html("Falta el email de usuario");
+								$('#respuesta_servlet').css({'color': 'red', 'margin': '1em auto', 'opacity': '1'});
+								break;
+							case "password":
+								$('#respuesta_servlet').html("Falta el password");
+								$('#respuesta_servlet').css({'color': 'red', 'margin': '1em auto', 'opacity': '1'});
+								break;
+							case "noExiste":
+								$('#respuesta_servlet').html("El usuario no esta registrado");
+								$('#respuesta_servlet').css({'color': 'red', 'margin': '1em auto', 'opacity': '1'});
+								break;
+							case "otro":
+								$('#respuesta_servlet').html("Error en el login");
+								$('#respuesta_servlet').css({'color': 'red', 'margin': '1em auto', 'opacity': '1'});
+								break;
+						}
+						break;
+				}
+			},
+		});
+		return false;
+	});
+</script>
+

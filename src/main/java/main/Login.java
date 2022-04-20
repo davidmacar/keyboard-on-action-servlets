@@ -11,63 +11,59 @@ import java.sql.*;
 public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        PrintWriter respuesta = response.getWriter();
         //Leer los campos
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
-        /*BORRAR*/
-        //Checkear la BD
-        System.out.println("email: " + email);
-        System.out.println("password: " + password);
+        //System.out.println("Email: " + email + "\nPassword: " + password );
+        /*COMPROBACIONES DE CAMPOS*/
+        if (!email.equals("")){
+            if (!password.equals("")) {
+                try {
+                    Class.forName("org.postgresql.Driver");
+                    try (Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/usuarios", "postgres", "postgres")) {
+                        if (connection != null) {
+                           Statement stmt = connection.createStatement();
+                            ResultSet rs = stmt.executeQuery("SELECT \"ID\", \"Nombre\", \"Email\", \"Contrasena\", \"Telefono\" FROM usuarios WHERE \"Email\"='" + email + "';");
+                            if(rs.next()){
+                                do{
+                                    //Display values
+                                    Usuario usuario = new Usuario(rs.getString("Nombre"), rs.getString("Email"),
+                                            rs.getString("Contrasena"), String.valueOf(rs.getLong("Telefono")), rs.getInt("ID") );
+                                    System.out.println("Usuario logeado:\nNombre: " + usuario.getNombre() + "\nEmail: " + usuario.getEmail() + "\nContraseña: "
+                                            + usuario.getContrasena() + "\nTelefono: " + usuario.getTelefono() + "\nID: " + usuario.getId());
+                                    respuesta.println("OK,correcto,"+usuario.getNombre());
+                                }
+                                while(rs.next());
+                            }
+                            else{
+                                respuesta.println("ERROR,noExiste");
+                            }
 
-        // do some processing here...
+                        }
 
-        // get response writer
-        PrintWriter writer = response.getWriter();
-
-        // build HTML code
-
-        String htmlRespone = "<html>";
-        htmlRespone += "<h2>Your username is: " + email + "<br/>";
-        htmlRespone += "Your password is: " + password + "</h2>";
-        htmlRespone += "</html>";
-        // return response
-        //writer.println(htmlRespone);
-        /*FIN BORRADO*/
-
-
-        try {
-            Class.forName("org.postgresql.Driver");
-            try(Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/usuarios", "postgres", "postgres")) {
-                if(connection != null){
-                    System.out.println("Conectado");
-                }
-                else{
-                    System.out.println("No conectado");
-                }
-                assert connection != null;
-                Statement st = connection.createStatement();
-                String query = "SELECT nombre, correo, contrasena FROM usuarios WHERE correo='" + email + "';";
-                ResultSet rs = st.executeQuery(query);
-                if(rs.next()){
-                    if(password.equals(rs.getString("contrasena"))) {
-                        System.out.println("Usuario encontrado");
-                        HttpSession session = request.getSession();
-                        session.setAttribute("username", rs.getString("nombre"));
-                        session.setAttribute("email", rs.getString("correo"));
-                        session.setAttribute("contrasena", rs.getString("contrasena"));
+                    } catch (SQLException e) {
+                        if (e.getSQLState().equals("23505")) {//Error de duplicado en la BD
+                            System.out.println("Usuario duplicado");
+                            respuesta.println("ERROR,duplicado");
+                        } else {
+                            e.printStackTrace();
+                            System.out.println("ERROR: " + e.getErrorCode());
+                            respuesta.println("ERROR,otro");
+                        }
 
                     }
-                    else
-                        System.out.println("Usuario no encontrado");
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
                 }
-                response.sendRedirect("/paginas/usuarios/login.html");
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } ;
 
-        } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
+            } else{ //Falta password
+                respuesta.println("ERROR,password");
+            }
+        }
+        else{//Falta email
+            respuesta.println("ERROR,email");
         }
     }
 
